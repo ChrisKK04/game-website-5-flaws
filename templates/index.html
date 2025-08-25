@@ -1,0 +1,138 @@
+{% extends "layout.html" %}
+<!-- Homepage -->
+{% block title%}Homepage - Purple{% endblock %}
+
+{% block content %}
+{% if not filled %}
+  {% for message in get_flashed_messages() %}
+    <p class="success">
+      <b>{{ message }}</b>
+    </p>
+  {% endfor %}
+{% endif %}
+
+<h2>Homepage</h2>
+  <div class="homepage_stats">
+    <p>
+      <b>
+        Discover {{ stats.games_amount }} unique {{ "games" if stats.games_amount != 1 else "game" }}
+        crafted by {{ stats.developers_amount }} talented {{ "developers" if stats.developers_amount != 1 else "developer" }},
+        reviewed by {{ stats.reviewers_amount }} community {{ "reviewers who have" if stats.reviewers_amount != 1 else "reviewer who has" }}
+        contributed a total of {{ stats.reviews_amount }} {{ "reviews" if stats.reviews_amount != 1 else "review"}}.
+      </b>
+    </p>
+  </div>
+<hr />
+
+{% if session.user_id and session.developer == 1 %} <!-- adding a new game (only for developers) -->
+  <div class="new_game_form">
+    <h3>New game</h3>
+    <form action="/{{ page }}" method="post" enctype="multipart/form-data">
+      <p>
+        <label for="title">* Title (max {{ GAME_FORM['MAX_TITLE_LENGTH'] }} characters)</label>: <br />
+        <input id="title" type="text" name="title" maxlength="{{ GAME_FORM['MAX_TITLE_LENGTH'] }}" value="{{ filled.title }}" required class="title"/>
+      </p>
+
+      <p>
+        <label for="description">* Description (max {{ GAME_FORM['MAX_DESCRIPTION_LENGTH'] }} characters)</label>: <br />
+        <textarea id="description" name="description" rows="{{ ROWS_COLS['ROWS'] }}" cols="{{ ROWS_COLS['COLS'] }}" maxlength="{{ GAME_FORM['MAX_DESCRIPTION_LENGTH'] }}" required class="textarea">{{ filled.description }}</textarea>
+      </p>
+
+      <p>
+        Categories: <br />
+        {% for category in all_classes['Category'] %}
+          {% if filled.classes %}
+            {% if category in filled.classes['Category'] %}
+              <label>
+                <input type="checkbox" name="classes" value="Category:{{ category }}" checked class="checkbox" /> {{ category }}
+              </label>
+            {% else %}
+              <label>
+                <input type="checkbox" name="classes" value="Category:{{ category }}" class="checkbox" /> {{ category }}
+              </label>
+            {% endif %}
+          {% else %}
+            <label>
+              <input type="checkbox" name="classes" value="Category:{{ category }}" class="checkbox" /> {{ category }}
+            </label>
+          {% endif %}
+          {% if loop.index % CATEGORIES_PER_LINE == 0 %} <!-- only allows 5 categories per line -->
+            <br />
+          {% endif %}
+        {% endfor %}
+      </p>
+
+      <p>
+        <label for="images_label">Images</label>: <br />
+        <small>(The images have to be .jpg-files and have a maximum size of a {{ IMAGE_FORM['STR_IMAGE_SIZE'] }})</small> <br />
+        <small>(You can select multiple images by holding ctrl)</small> <br />
+        <input id="images_label" type="file" name="images" accept=".jpg" multiple class="button_file" />
+      </p>
+
+      {% if filled %}
+        {% for message in get_flashed_messages() %}
+        <p class="error">
+          <b>{{ message }}</b>
+        </p>
+        {% endfor %}
+      {% endif %}
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"/>
+      <input type="submit" value="send" class="button_send" />
+    </form>
+  </div>
+{% else %}
+  <p>
+    (<a href="/login">Login</a> as a developer to upload games)
+  </p>
+{% endif %}
+
+{% if games | count != 0 %}
+  <hr />
+  <h3>Games</h3>
+{% else %}
+<hr />
+  <h3>No uploaded games</h3>
+{% endif %}
+
+{% for game in games %} <!-- displays the games and some info -->
+  <div class="game">
+    <p>
+      <a href="/game/{{ game.id }}">{{ game.title }}</a>
+    </p>
+
+    <p>
+      Published by <a href="/user/{{ game.user_id }}">{{ game.username }}</a> at: {{ game.uploaded_at }} <br />
+      {% if all_game_classes[game.id] %}
+        {% for category in all_game_classes[game.id]['Category'] if all_game_classes[game.id]['Category'] %}
+          <div class="category">{{ category }}</div>
+          {% if loop.index % CATEGORIES_PER_LINE == 0 %}
+            <br />
+          {% endif %}
+        {% endfor %}
+        <br />
+      {% endif %}
+      {% if game.total != 0 %}
+        <b>
+          {{ game.total }} {{ "reviews" if game.total != 1 else "review"}} with
+          {{ ("an average score of " ~ game.average) if game.total != 1 else ("a score of " ~ game.average) }}
+        </b>
+      {% else %}
+        <b>No reviews</b>
+      {% endif %}
+    </p>
+
+    {% if game.user_id == session.user_id %}
+      <p>
+        <a href="/edit_game/{{ game.id }}">Edit</a> |
+        <a href="/delete_game/{{ game.id }}">Delete</a>
+      </p>
+    {% endif %}
+  </div>
+{% endfor %}
+
+<p> <!-- Paging -->
+  <a href="/{{ page - 1}}">&lt;&lt;</a>
+  Page {{ page }}/{{ page_count }}
+  <a href="/{{ page + 1}}">&gt;&gt;</a>
+</p>
+{% endblock %}

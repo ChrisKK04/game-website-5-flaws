@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+<!-- Game editing page -->
+{% block title%}Editing {{ game.title }} - Purple{% endblock %}
+
+{% block content %}
+<h2>Editing game</h2>
+<hr />
+
+<form action="/edit_game/{{ game.id }}" method="post" enctype="multipart/form-data">
+  <p>
+    <label for="title">* Title (max {{ GAME_FORM['MAX_TITLE_LENGTH'] }} characters)</label>: <br />
+    {% if filled.title %}
+      <input id="title" type="text" name="title" value="{{ filled.title }}" maxlength="{{ GAME_FORM['MAX_TITLE_LENGTH'] }}" required class="title" />
+    {% else %}
+      <input id="title" type="text" name="title" value="{{ game.title }}" maxlength="{{ GAME_FORM['MAX_TITLE_LENGTH'] }}" required class="title" />
+    {% endif %}
+  </p>
+
+  <p>
+    <label for="description">* Description (max {{ GAME_FORM['MAX_DESCRIPTION_LENGTH'] }} characters)</label>:<br />
+    {% if filled.description %}
+      <textarea id="description" name="description" rows="{{ ROWS_COLS['ROWS'] }}" cols="{{ ROWS_COLS['COLS'] }}" maxlength="{{ GAME_FORM['MAX_DESCRIPTION_LENGTH'] }}" required class="textarea">{{ filled.description }}</textarea>
+    {% else %}
+      <textarea id="description" name="description" rows="{{ ROWS_COLS['ROWS'] }}" cols="{{ ROWS_COLS['COLS'] }}" maxlength="{{ GAME_FORM['MAX_DESCRIPTION_LENGTH'] }}" required class="textarea">{{ game.description }}</textarea>
+    {% endif %}
+  </p>
+
+  <p>
+    Categories: <br />
+    {% for category in all_classes['Category'] %}
+      {% if filled %}
+        {% if category in filled.classes['Category'] %}
+          <label>
+            <input type="checkbox" name="classes" value="Category:{{ category }}" checked class="checkbox" /> {{ category }}
+          </label>
+        {% else %}
+          <label>
+            <input type="checkbox" name="classes" value="Category:{{ category }}" class="checkbox" /> {{ category }}
+          </label>
+        {% endif %}
+        {% if loop.index % CATEGORIES_PER_LINE == 0 %}
+            <br />
+        {% endif %}
+
+      {% else %}
+        {% if category in classes['Category'] %}
+          <label>
+            <input type="checkbox" name="classes" value="Category:{{ category }}" checked class="checkbox"/> {{ category }}
+          </label>
+        {% else %}
+          <label>
+            <input type="checkbox" name="classes" value="Category:{{ category }}" class="checkbox" /> {{ category }}
+          </label>
+        {% endif %}
+        {% if loop.index % CATEGORIES_PER_LINE == 0 %}
+            <br />
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </p>
+  
+  {% if images %}
+    <p>
+      Select the images for deletion: <br />
+      {% for image in images %}
+        <div class="edit_game_image">
+          <label>
+            <input type="checkbox" name="delete_images" value="{{ image.id }}" class="checkbox"/>
+            <img src="/image/{{ image.id }}" alt="{{ game.title }}'s image {{ loop.index }}" />
+          </label>
+        </div>
+      {% endfor %}
+    </p>
+  {% endif %}
+
+  <p>
+    <label for="images_label">New images</label>: <br />
+    <small>(The images have to be .jpg-files and have a maximum size of {{ IMAGE_FORM['STR_IMAGE_SIZE'] }})</small> <br />
+    <small>(You can select multiple images by holding ctrl)</small> <br />
+    <input id="images_label" type="file" name="new_images" accept=".jpg" multiple class="button_file" />
+  </p>
+  
+  {% for message in get_flashed_messages() %}
+    <p class="error">
+      <b>{{ message }}</b>
+    </p>
+  {% endfor %}
+
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"/>
+  <input type="submit" value="Update" class="button_send"/>
+</form>
+{% endblock %}

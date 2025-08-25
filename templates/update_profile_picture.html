@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+<!-- Profile picture updating page -->
+{% block title%}Profile picture - Purple{% endblock %}
+
+{% block content %}
+<h1>Profile picture</h1>
+<hr />
+
+<p>
+  Add a .jpg-file, with a maximum size of {{ IMAGE_FORM['STR_IMAGE_SIZE'] }}
+</p>
+
+<form action="/update_profile_picture" method="post" enctype="multipart/form-data">
+  <p>
+    <label for="image">Image</label>: <input id="image" type="file" name="image" accept=".jpg" class="button_file" />
+  </p>
+
+  {% for message in get_flashed_messages() %}
+    <p class="error">
+      <b>{{ message }}</b>
+    </p>
+  {% endfor %}
+
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"/>
+  <input type="submit" value="Send" class="button_send">
+</form>
+{% endblock %}

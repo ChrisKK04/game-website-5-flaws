@@ -1,0 +1,329 @@
+{% extends "layout.html" %}
+<!-- Search page -->
+{% block title%}Search - Purple{% endblock %}
+
+{% block content %}
+{% for message in get_flashed_messages() %}
+  <p class="success">
+    <b>{{ message }}</b>
+  </p>
+{% endfor %}
+<h1>Search</h1>
+<hr />
+
+<div class="search_form"> <!-- game search -->
+  <form action="/search" method="get">
+    <b>Game search</b> <br />
+
+    <p>
+      <label for="title">Title</label>: <br />
+      {% if games_filled %}
+        <input id="title" type="text" name="title" value="{{ games_filled.title }}" class="title" />
+      {% else %}
+        <input id="title" type="text" name="title" class="title" />
+      {% endif %}
+    </p>
+
+    <p>
+      <label for="description">Description</label>: <br />
+      {% if games_filled %}
+        <textarea id="description" name="description" rows="{{ ROWS_COLS['ROWS_SEARCH'] }}" cols="{{ ROWS_COLS['COLS_SEARCH'] }}" class="textarea">{{ games_filled.description }}</textarea>
+      {% else %}
+        <textarea id="description" name="description" rows="{{ ROWS_COLS['ROWS_SEARCH'] }}" cols="{{ ROWS_COLS['COLS_SEARCH'] }}" class="textarea"></textarea>
+      {% endif %}
+    </p>
+
+    <p>
+      Categories: <br />
+      {% for category in all_classes['Category'] %}
+        {% if games_filled %}
+          {% if category in games_filled.classes_save['Category'] %}
+            <label>
+              <input type="checkbox" name="classes" value="Category:{{ category }}" checked class="checkbox" /> {{ category }}
+            </label>
+          {% else %}
+            <label>
+              <input type="checkbox" name="classes" value="Category:{{ category }}" class="checkbox" /> {{ category }}
+            </label>
+          {% endif %}
+        {% else %}
+          <label>
+            <input type="checkbox" name="classes" value="Category:{{ category }}" class="checkbox" /> {{ category }}
+          </label>
+        {% endif %}
+        {% if loop.index % CATEGORIES_PER_LINE == 0 %}
+          <br />
+        {% endif %}
+      {% endfor %}
+    </p>
+
+    <p>
+      Average review score:
+      {% if games_filled %}
+        <input type="number" name="game_score" min="0" max="5" step="0.1" value="{{ games_filled.game_score }}" class="title" />
+      {% else %}
+        <input type="number" name="game_score" min="0" max="5" step="0.1" value="1" class="title" />
+      {% endif %}
+      <br />
+
+      <input id="game_any" type="radio" name="game_score_type" value="0" checked class="radio" />
+      <label for="game_any">Any</label>
+      {% if games_filled %}
+        {% if games_filled.game_score_type == "1" %}
+          <input id="game_above" type="radio" name="game_score_type" value="1" checked class="radio" />
+        {% else %}
+          <input id="game_above" type="radio" name="game_score_type" value="1" class="radio" />
+        {% endif %}
+        <label for="game_above">Above</label>
+        {% if games_filled.game_score_type == "2" %}
+          <input id="game_below" type="radio" name="game_score_type" value="2" checked class="radio" />
+        {% else %}
+          <input id="game_below" type="radio" name="game_score_type" value="2" class="radio" />
+        {% endif %}
+        <label for="game_below">Below</label>
+      {% else %}
+        <input id="game_above" type="radio" name="game_score_type" value="1" class="radio" />
+        <label for="game_above">Above</label>
+        <input id="game_below" type="radio" name="game_score_type" value="2" class="radio" />
+        <label for="game_below">Below</label>
+      {% endif %}
+      <br />
+    </p>
+
+    <p>
+      <label for="publisher">Publisher</label>: <br />
+      {% if games_filled %}
+        <input id="publisher" type="text" name="publisher" value="{{ games_filled.publisher }}" class="title" />
+      {% else %}
+        <input id="publisher" type="text" name="publisher" class="title" />
+      {% endif %}
+    </p>
+
+    <input type="hidden" name="search_type" value="game_search" />
+    <input type="submit" value="Search games" class="button_send" />
+  </form>
+</div>
+
+<div class="search_form"> <!-- review search -->
+  <form action="/search" method="get">
+    <b>Review search</b> <br />
+    
+    <p>
+      <label for="content">Content</label>: <br />
+      {% if reviews_filled %}
+        <textarea id="content" name="content" rows="{{ ROWS_COLS['ROWS_SEARCH'] }}" cols="{{ ROWS_COLS['COLS_SEARCH'] }}" class="textarea">{{ reviews_filled.content }}</textarea>
+      {% else %}
+        <textarea id="content" name="content" rows="{{ ROWS_COLS['ROWS_SEARCH'] }}" cols="{{ ROWS_COLS['COLS_SEARCH'] }}" class="textarea"></textarea>
+      {% endif %}
+    </p>
+
+    <p>
+      <label for="review_score">Review score</label>:
+      <select id="review_score" name="review_score" class="dropdown_select">
+        {% if reviews_filled %}
+          {% for score in range(1, 6) %}
+            {% if reviews_filled.review_score == score|string %}
+              <option value="{{ score }}" selected >{{ score }}</option>
+            {% else %}
+              <option value="{{ score }}">{{ score }}</option>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          {% for score in range(1, 6) %}
+            <option value="{{ score }}">{{ score }}</option>
+          {% endfor %}
+        {% endif %}
+      </select>
+      <br />
+
+      <input id="review_any" type="radio" name="review_score_type" value="0" checked class="radio" />
+      <label for="review_any">Any</label>
+      {% if reviews_filled %}
+        {% if reviews_filled.review_score_type == "1" %}
+          <input id="review_above" type="radio" name="review_score_type" value="1" checked class="radio" />
+        {% else %}
+          <input id="review_above" type="radio" name="review_score_type" value="1" class="radio" />
+        {% endif %}
+        <label for="review_above">Above</label>
+        {% if reviews_filled.review_score_type == "2" %}
+          <input id="review_below" type="radio" name="review_score_type" value="2" checked class="radio" />
+        {% else %}
+          <input id="review_below" type="radio" name="review_score_type" value="2" class="radio" />
+        {% endif %}
+        <label for="review_below">Below</label>
+      {% else %}
+        <input id="review_above" type="radio" name="review_score_type" value="1" class="radio" />
+        <label for="review_above">Above</label>
+        <input id="review_below" type="radio" name="review_score_type" value="2" class="radio" />
+        <label for="review_below">Below</label>
+      {% endif %}
+      <br />
+    </p>
+
+    <input type="hidden" name="search_type" value="review_search" />
+    <input type="submit" value="Search reviews" class="button_send" />
+  </form>
+</div>
+
+<div class="search_form"> <!-- user search -->
+  <form action="/search" method="get">
+    <b>User search</b> <br />
+    
+    <p>
+      <label for="username">Username</label>: <br />
+      {% if users_filled %}
+        <input id="username" type="text" name="username" value="{{ users_filled.username }}" class="title" />
+      {% else %}
+        <input id="username" type="text" name="username" class="title" />
+      {% endif %}
+    </p>
+
+    <p>
+      {% if users_filled %}
+        Type: <br />
+        <input id="user_any" type="radio" name="user_type" value="2" checked class="radio" />
+        <label for="user_any">Any</label>
+
+        {% if "0" in users_filled.user_type %}
+          <input id="type_reviewer" type="radio" name="user_type" value="0" checked class="radio" />
+        {% else %}
+          <input id="type_reviewer" type="radio" name="user_type" value="0" class="radio" />
+        {% endif %}
+        <label for="type_reviewer">Reviewer</label>
+        
+        {% if "1" in users_filled.user_type %}
+          <input id="type_developer" type="radio" name="user_type" value="1" checked class="radio" />
+        {% else %}
+          <input id="type_developer" type="radio" name="user_type" value="1" class="radio" />
+        {% endif %}
+        <label for="type_developer">Developer</label>
+
+      {% else %}
+        Type: <br />
+        <input id="user_any" type="radio" name="user_type" value="2" checked class="radio" />
+        <label for="user_any">Any</label>
+        <input id="type_reviewer" type="radio" name="user_type" value="0" class="radio" />
+        <label for="type_reviewer">Reviewer</label>
+        <input id="type_developer" type="radio" name="user_type" value="1" class="radio" />
+        <label for="type_developer">Developer</label>
+      {% endif %}
+    </p>
+
+    <input type="hidden" name="search_type" value="user_search" />
+    <input type="submit" value="Search users" class="button_send" />
+  </form>
+</div>
+
+{% if result_classes | count != 0 %} <!-- game display -->
+  <hr />
+  <h2>Games</h2>
+  <p>
+    <b>{{ games | count }} {{ "games match the search" if games | count != 1 else "game matches the search"}}</b>
+  </p>
+  {% for game in games %}
+    {% if game.game_id in valid_game_ids %}
+    <div class="game">
+      <p>
+        <a href="/game/{{ game.game_id }}">{{ game.title }}</a>
+      </p>
+      <p>
+        Published by <a href="/user/{{ game.publisher }}">{{ game.publisher }}</a> at: {{ game.uploaded_at }} <br />
+        {% if result_classes[game.game_id] != "no_classes" %}
+          {% for category in result_classes[game.game_id]['Category'] %}
+            <div class="category">{{ category }}</div>
+            {% if loop.index % CATEGORIES_PER_LINE == 0 %}
+              <br />
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        <br />
+        {% if game.total != 0 %}
+          <b>
+            {{ game.total }} {{ "reviews" if game.total > 1 else "review"}} with
+            {{ ("an average score of " ~ game.average) if game.total > 1 else ("a score of " ~ game.average) }}
+          </b>
+        {% else %}
+          <b>No reviews</b>
+        {% endif %}
+      </p>
+      {% if game.publisher_id == session.user_id %}
+        <p>
+          <a href="/edit_game/{{ game.game_id }}">Edit</a> |
+          <a href="/delete_game/{{ game.game_id }}">Delete</a>
+        </p>
+      {% endif %}
+    </div>
+    {% endif %}
+  {% endfor %}
+{% elif games == [] %}
+  <h2>Games</h2>
+  <p>
+    No games match the search
+  </p>
+{% endif %}
+
+{% if reviews | count != 0 %} <!-- review display -->
+  <hr />
+  <h2>Reviews</h2>
+  <p>
+    <b>{{ reviews | count }} {{ "reviews match the search" if reviews | count != 1 else "review matches the search"}}</b>
+  </p>
+  {% for review in reviews %}
+    <div class="review">
+      <p>
+        <a href="/user/{{ review.user_id }}">{{ review.username }}</a> for <a href="/game/{{ review.game_id}}#{{ review.review_id }}">{{ review.game_title }}</a>
+      </p>
+      <p>
+        ({{ review.sent_at }})
+        <br />
+        {{ review.content }}
+        <br />
+        <b>Score: {{ review.score }}</b>
+      </p>
+      {% if review.user_id == session.user_id %}
+        <p>
+          <a href="/edit_review/{{ review.review_id }}">Edit</a> |
+          <a href="/delete_review/{{ review.review_id }}">Delete</a>
+        </p>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% elif reviews == [] %}
+  <h2>Reviews</h2>
+  <p>
+    No reviews match the search
+  </p>
+{% endif %}
+
+{% if users | count != 0 %} <!-- user display -->
+  <hr />
+  <h2>Users</h2>
+  <p>
+    <b>{{ users | count }} {{ "users match the search" if users | count != 1 else "user matches the search"}}</b>
+  </p>
+  {% for user in users %}
+    <div class="user">
+      <p>
+      {% if user.image %}
+        <img src="/profile_picture/{{ user.id }}" alt="User {{ user.username }}'s profile picture" />
+        <br />
+      {% endif %}
+      {% if user.developer == 0 %}
+        Reviewer <a href="/user/{{ user.id }}">{{ user.username }}</a>
+      {% elif user.developer == 1 %}
+        Developer <a href="/user/{{ user.id }}">{{ user.username }}</a>
+      {% endif %}
+      </p>
+    </div>
+  {% endfor %}
+{% elif users == [] %}
+  <h2>Users</h2>
+  <p>
+    No users match the search
+  </p>
+{% endif %}
+
+{% if no_search %}
+  <h2>No search given</h2>
+{% endif %}
+{% endblock %}

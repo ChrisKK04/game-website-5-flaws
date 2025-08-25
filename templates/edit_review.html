@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+<!-- Review editing page -->
+{% block title%}Editing review for {{ review.title }} - Purple{% endblock %}
+
+{% block content %}
+<h2>Editing review</h2>
+<hr />
+
+<form action="/edit_review/{{ review.id }}" method="post">
+  <p>
+    <label for="content">* Review (max {{ REVIEW_FORM['MAX_LENGTH'] }} characters)</label>:<br />
+    {% if filled %}
+      <textarea id="content" name="content" rows="{{ ROWS_COLS['ROWS'] }}" cols="{{ ROWS_COLS['COLS'] }}" maxlength="{{ REVIEW_FORM['MAX_LENGTH'] }}" required class="textarea">{{ filled.content }}</textarea>
+    {% else %}
+      <textarea id="content" name="content" rows="{{ ROWS_COLS['ROWS'] }}" cols="{{ ROWS_COLS['COLS'] }}" maxlength="{{ REVIEW_FORM['MAX_LENGTH'] }}" required class="textarea">{{ review.content }}</textarea>
+    {% endif %}
+  </p>
+
+  <p>
+    Previous score: {{ review.score }}
+  </p>
+
+  <p>
+    <label for="score">* New score ({{ REVIEW_FORM['MIN_SCORE'] }}-{{ REVIEW_FORM['MAX_SCORE'] }})</label>:
+    <select id="score" name="score" class="dropdown_select">
+      {% if filled %}
+        {% for score in range(REVIEW_FORM['MIN_SCORE'], REVIEW_FORM['MAX_SCORE'] + 1) %}
+          {% if filled.score == score|string %}
+            <option value="{{ score }}" selected>{{ score }}</option>
+          {% else %}
+            <option value="{{ score }}">{{ score }}</option>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% for score in range(REVIEW_FORM['MIN_SCORE'], REVIEW_FORM['MAX_SCORE'] + 1) %}
+          {% if score == review.score %}
+            <option value="{{ score }}" selected>{{ score }}</option>
+          {% else %}
+            <option value="{{ score }}">{{ score }}</option>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </select>
+  </p>
+
+  {% for message in get_flashed_messages() %}
+    <p class="error">
+      <b>{{ message }}</b>
+    </p>
+  {% endfor %}
+
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+  <input type="submit" value="Update" class="button_send" />
+</form>
+{% endblock %}

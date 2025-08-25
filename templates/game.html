@@ -1,0 +1,155 @@
+{% extends "layout.html" %}
+<!-- Game page -->
+
+{% block title %}{{ game.title }} - Purple{% endblock %}
+
+{% block content %}
+{% if not filled %}
+  {% for message in get_flashed_messages() %}
+    <p class="success">
+      <b>{{ message }}</b>
+    </p>
+  {% endfor %}
+{% endif %}
+
+<div><!-- game info-->
+  <h2>{{ game.title }}</h2>
+  <hr />
+
+  <h4>Published by <a href="/user/{{ game.user_id }}">{{ game.username }}</a> at {{ game.uploaded_at }}</h4>
+  <p>
+    {{ game.description | show_lines }}
+  </p>
+
+  <p>
+    {% for category in classes['Category'] %}
+      <div class="category">{{ category }}</div>
+      {% if loop.index % CATEGORIES_PER_LINE == 0 %}
+        <br />
+      {% endif %}
+    {% endfor %}
+  </p>
+
+  <p>
+    {% for image in images %}
+      <div class="game_image">
+        <img src="/image/{{ image.id }}" alt="{{ game.title }}'s image {{ loop.index }}" />
+      </div>
+    {% endfor %}
+  </p>
+
+  <p>
+    {% if reviews | count != 0 %}
+      <b>
+        {{ reviews | count }} {{ "reviews" if reviews | count != 1 else "review"}} with
+        {{ ("an average score of " ~ average.average) if reviews | count != 1 else ("a score of " ~ average.average) }}
+      </b>
+    {% else %}
+      <b>No reviews</b>
+    {% endif %}
+  </p>
+
+  {% if game.user_id == session.user_id %}
+    <p>
+      <a href="/edit_game/{{ game.id }}">Edit</a> |
+      <a href="/delete_game/{{ game.id }}">Delete</a>
+    </p>
+  {% endif %}
+</div>
+
+{% if session.user_id and session.developer == 0 %} <!-- adding a new review (only for users) -->
+  <hr />
+  <div class="new_review_form">
+    <h3>New review</h3>
+
+    <form action="/game/{{ game.id }}" method="post">
+      <p>
+        <label for="content">* Review (max {{ REVIEW_FORM['MAX_LENGTH'] }} characters)</label>:<br />
+        {% if filled %}
+          <textarea id="content" name="content" rows="{{ ROWS_COLS['ROWS'] }}" cols="{{ ROWS_COLS['COLS'] }}" maxlength="{{ REVIEW_FORM['MAX_LENGTH'] }}" required class="textarea">{{ filled.content }}</textarea>
+        {% else %}
+          <textarea id="content" name="content" rows="{{ ROWS_COLS['ROWS'] }}" cols="{{ ROWS_COLS['COLS'] }}" maxlength="{{ REVIEW_FORM['MAX_LENGTH'] }}" required class="textarea"></textarea>
+        {% endif %}
+      </p>
+      
+      <p>
+        <label for="score">* Score ({{ REVIEW_FORM['MIN_SCORE'] }}-{{ REVIEW_FORM['MAX_SCORE'] }})</label>:
+        <select id="score" name="score" class="dropdown_select">
+          {% if filled %}
+            {% for score in range(REVIEW_FORM['MIN_SCORE'], REVIEW_FORM['MAX_SCORE'] + 1) %}
+              {% if filled.score == score|string %}
+                <option value="{{ score }}" selected >{{ score }}</option>
+              {% else %}
+                <option value="{{ score }}">{{ score }}</option>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            {% for score in range(REVIEW_FORM['MIN_SCORE'], REVIEW_FORM['MAX_SCORE'] + 1) %}
+              <option value="{{ score }}">{{ score }}</option>
+            {% endfor %}
+          {% endif %}
+        </select>
+      </p>
+
+      {% if filled and not filled.previous %}
+        {% for message in get_flashed_messages() %}
+          <p class="error">
+            <b>{{ message }}</b>
+          </p>
+        {% endfor %}
+      {% endif %}
+
+      {% if filled and filled.previous %}
+        {% for message in get_flashed_messages() %}
+          <p class="error">
+            <b>{{ message | safe }}</b>
+          </p>
+        {% endfor %}
+      {% endif %}
+
+      <input type="hidden" name="game_id" value="{{ game.id }}" />
+      <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+      <input type="submit" value="Send" class="button_send" />
+    </form>
+  </div>
+{% else %}
+  <hr />
+  <p>
+    (<a href="/login">Login</a> as a reviewer to review games)
+  </p>
+{% endif %}
+
+{% if reviews | count != 0 %}
+  <hr />
+  <h3>Reviews</h3>
+
+  {% for review in reviews %} <!-- reviews -->
+    <div class="review">
+      <p id="{{ review.id }}">
+        {% if review.image %}
+          <img src="/profile_picture/{{ review.user_id }}" alt="User {{ review.username }}'s profile picture" />
+          <br />
+        {% endif %}
+        <a href="/user/{{ review.user_id }}">{{ review.username }}</a>
+      </p>
+
+      <p>
+        ({{ review.sent_at }})
+        <br />
+        {{ review.content | show_lines }}
+      </p>
+
+      <p>
+        <b>score: {{ review.score }}</b>
+      </p>
+
+      {% if review.user_id == session.user_id %}
+        <p>
+          <a href="/edit_review/{{ review.id }}">Edit</a> |
+          <a href="/delete_review/{{ review.id }}">Delete</a>
+        </p>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% endif %}
+{% endblock %}

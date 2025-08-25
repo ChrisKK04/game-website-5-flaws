@@ -1,0 +1,242 @@
+body { 
+  margin: auto; /* centers the content */
+  max-width: 50rem; /* a lines maximum width*/
+  font-family: sans-serif; /* font */
+  background-color: rgb(57, 0, 65); /* color */
+  overflow-wrap: break-word; /* automatically breaks long lines of text into smaller pieces */
+}
+
+img {
+  border-radius: 4px;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: rgb(101, 0, 114);
+}
+
+a:hover {
+  color: rgb(51, 0, 58);
+}
+
+.header {
+  background-color: gray;
+  border-radius: 4px;
+  color: black;
+  padding: 1rem; /* space inside of the element*/
+  margin: 0.5rem 0; /* space outside of the element (vertical horizontal)*/
+}
+
+.header_text {
+  color: rgb(97, 1, 112);
+}
+
+.nav {
+  background-color: darkgray;
+  border-radius: 4px;
+  color: black;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+}
+
+.content {
+  background-color: lightgray;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+
+.button_send {
+  background-color: #af00c6;
+  border: 2px solid rgb(65, 65, 65);
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.button_send:hover {
+  background-color: #9400a7;
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 9px 25px 0 rgba(0,0,0,0.19);
+}
+
+.button_file {
+  background-color: #c200dc;
+  border: 2px solid rgb(65, 65, 65);
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  margin: 0.5em 0;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  width: 12rem;
+}
+
+.button_file:hover {
+  background-color: #ac00c3;
+  transform: scale(1.05);
+  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 9px 25px 0 rgba(0,0,0,0.19);
+}
+
+.checkbox {
+  accent-color: #9400a7;
+  cursor: pointer;
+}
+
+.textarea {
+  background-color: rgb(241, 241, 241);
+  border: 2px solid rgb(65, 65, 65);
+  border-radius: 4px;
+  outline: none;
+}
+
+.title {
+  background-color: rgb(241, 241, 241);
+  border: 2px solid rgb(65, 65, 65);
+  border-radius: 4px;
+  outline: none;
+}
+
+.dropdown_select {
+  background-color: rgb(241, 241, 241);
+  border: 2px solid rgb(65, 65, 65);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+.radio {
+  accent-color: #9400a7;
+  cursor: pointer;
+}
+
+.homepage_stats {
+  background: linear-gradient(to bottom, #cf00eb, #1d005c, #cf00eb);
+  background-size: 300% 300%;
+  background-position: 50% 0%;
+  border: 2px solid rgb(78, 78, 78);
+  border-radius: 4px;
+  color: rgb(229, 229, 229);
+  margin: 1rem;
+  padding: 0 0.5rem;
+  animation: stats_gradient 7s ease infinite ;
+}
+
+@keyframes stats_gradient {
+  0% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
+  }
+}
+
+.game, .review { /* homepage games and game page reviews */
+  border: 3px solid rgb(141, 141, 141);
+  border-radius: 4px;
+  background-color: rgb(200, 200, 200);
+  margin: 1rem;
+  padding: 0 0.5rem;
+}
+
+.game_image {
+  display: inline-block;
+  max-width: 45%;
+  height: auto;
+}
+
+.error { /* error-flash messages */
+  border: 3px solid rgb(141, 141, 141);
+  border-radius: 4px;
+  margin: 1rem;
+  padding: 0.5rem;
+  background-color: rgb(120, 0, 0);
+  color: lightgrey;
+}
+
+.error a {
+  color: whitesmoke;
+}
+
+.success { /* success-flash messages */
+  border: 3px solid rgb(141, 141, 141);
+  border-radius: 4px;
+  margin: 1rem;
+  padding: 0.5rem;
+  background-color: rgb(0, 88, 0);
+  color: lightgrey;
+}
+
+.category { /* game categories */
+  display: inline-block;
+  border: 2px solid rgb(160, 159, 159);
+  border-radius: 4px;
+  margin: 0.1rem 0;
+  padding: 0 0.15rem;
+}
+
+.edit_game_image { /* makes game images smaller on the edit page */
+  max-width: 20%;
+  height: auto;
+}
+
+.search_form, .new_game_form, .new_review_form {
+  border: 3px solid rgb(141, 141, 141);
+  background-color: rgb(205, 205, 205);
+  border-radius: 4px;
+  margin: 1rem 0;
+  padding: 0.5rem;
+}
+
+.user {
+  border: 2px solid rgb(141, 141, 141);
+  background-color: rgb(200, 200, 200);
+  border-radius: 4px;
+  margin: 0.5rem;
+  padding: 0 1rem;
+}
+
+.user img, .review img {
+  max-width: 20%;
+  height: auto;
+  margin: 0.5rem 0;
+}
+
+.user_page_img {
+  max-width: 30%;
+  height: auto;
+  margin: 0.5rem 0;
+}
+
+nav {
+  text-align: center;
+}
+
+nav ul {
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  display: inline-block;
+  padding: 0 1rem;
+  margin: 0;
+}
+
+nav li:not(:last-of-type) {
+  border-right: 1px solid black;
+}
+
+nav li:not(:first-of-type) {
+  margin-left: -0.25rem;
+}
+
+h1, h2, h3 { /* remove automatic margins for h1, h2 and h3 */
+  margin: 0;
+}

@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+<!-- Review deleting page -->
+{% block title%}Deleting review for {{ review.title }} - Purple - Purple{% endblock %}
+
+{% block content %}
+<h2>Deleting review</h2>
+<hr />
+
+<form action="/delete_review/{{ review.id }}" method="post">
+  <p>
+    Are you sure you want to delete the review?
+  </p>
+
+  {% if next_page %}
+    <input type="hidden" name="next_page" value="{{ next_page }}" />
+  {% else %}
+    <input type="hidden" name="next_page" value="/" />
+  {% endif %}
+
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}"/>
+  <input type="submit" name="delete" value="Delete" class="button_send" />
+  <input type="submit" name="cancel" value="Cancel" class="button_send" />
+</form>
+{% endblock %}

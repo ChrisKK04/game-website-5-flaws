@@ -1,10 +1,10 @@
 """Module with user related SQL-queries."""
 
 import sqlite3
-from werkzeug.security import (
-    generate_password_hash,
-    check_password_hash
-)
+# from werkzeug.security import ( # add
+    # generate_password_hash, # add
+    # check_password_hash # add
+# ) # add
 
 import db
 
@@ -27,7 +27,8 @@ def get_all_dev_game_classes(user_id): # gets the classes for every game for a s
     return all_dev_game_classes
 
 def create_user(username, password, developer): # adding a user to the database
-    password_hash = generate_password_hash(password)
+    password_hash = password # remove
+    # password_hash = generate_password_hash(password) # add
     try:
         sql = "INSERT INTO users (username, password_hash, developer) VALUES (?, ?, ?)"
         db.execute(sql, [username, password_hash, developer])
@@ -39,7 +40,8 @@ def check_login(username, password): # checks the login of a user
     sql = "SELECT password_hash, id AS user_id, developer FROM users WHERE username = ?"
     result = db.query(sql, [username])
     if result:
-        return result[0] if check_password_hash(result[0]["password_hash"], password) else None
+        return result[0] if password == result[0]["password_hash"] else None # remove
+        # return result[0] if check_password_hash(result[0]["password_hash"], password) else None # add
     return None
 
 

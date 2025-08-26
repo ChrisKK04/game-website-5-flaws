@@ -1,7 +1,7 @@
 """A python script to insert pre-made data into the database."""
 
 import sqlite3
-from werkzeug.security import generate_password_hash
+# from werkzeug.security import generate_password_hash # add
 
 import config
 
@@ -100,10 +100,10 @@ classes = [[1, "Category", "Action"],
            [5, "Category", "Strategy"]]
 
 for username, password, developer in users: # inserts the users
-    password_hash = generate_password_hash(password)
+    # password = generate_password_hash(password) # add
     sql = """INSERT INTO Users (username, password_hash, developer)
              VALUES (?, ?, ?)"""
-    db.execute(sql, [username, password_hash, developer])
+    db.execute(sql, [username, password, developer])
 
 for title, description, user_id in games: # inserts the games
     sql = f"""INSERT INTO Games (title, description, uploaded_at, user_id)

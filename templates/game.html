@@ -136,7 +136,8 @@
       <p>
         ({{ review.sent_at }})
         <br />
-        {{ review.content | show_lines }}
+        {{ review.content | safe }}
+        <!-- {{ review.content | show_lines }} -->
       </p>
 
       <p>

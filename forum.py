@@ -146,8 +146,10 @@ def delete_review(review_id): # deletes a review
     db.execute(sql, [review_id])
 
 def edit_game(game_id, title, description, classes, delete_images, new_images): # updates a game
-    sql = "UPDATE games SET title = ?, description = ? WHERE id = ?"
-    db.execute(sql, [title, description, game_id])
+    sql = f"UPDATE games SET title = '{title}', description = '{description}' WHERE id = {game_id}" # remove
+    db.execute(sql, []) # remove
+    # sql = "UPDATE games SET title = ?, description = ? WHERE id = ?" # add
+    # db.execute(sql, [title, description, game_id]) # add
 
     sql = "DELETE FROM game_classes WHERE game_id = ?"
     db.execute(sql, [game_id])

@@ -39,9 +39,9 @@ def require_login(): # checks login
     if "user_id" not in session:
         abort(403)
 
-def check_csrf():
-    if request.form["csrf_token"] != session["csrf_token"]:
-        abort(403)
+# def check_csrf(): # add
+    # if request.form["csrf_token"] != session["csrf_token"]: # add
+        # abort(403) # add
 
 def valid_user(username, password, developer): # checks user requirements
     if (not username or not password or not developer
@@ -107,7 +107,7 @@ def index(page=1):
 
     if request.method == "POST":
         require_login()
-        check_csrf()
+        # check_csrf() # add
 
         title = request.form["title"]
         description = request.form["description"]
@@ -264,7 +264,7 @@ def show_game(game_id):
 
     if request.method == "POST":
         require_login()
-        check_csrf()
+        # check_csrf() # add
 
         content = request.form["content"]
         score = request.form["score"]
@@ -326,7 +326,7 @@ def edit_review(review_id):
                                ROWS_COLS=ROWS_COLS)
 
     if request.method == "POST":
-        check_csrf()
+        # check_csrf() # add
         content = request.form["content"]
         score = request.form["score"]
         if valid_review(content, score):
@@ -358,7 +358,7 @@ def delete_review(review_id):
         return render_template("delete_review.html", review=review, next_page=request.referrer)
 
     if request.method == "POST":
-        check_csrf()
+        # check_csrf() # add
         flash("Review deleted")
         next_page = request.form["next_page"]
         if "delete" in request.form:
@@ -389,7 +389,7 @@ def edit_game(game_id):
                                CATEGORIES_PER_LINE=CATEGORIES_PER_LINE)
 
     if request.method == "POST":
-        check_csrf()
+        # check_csrf() # add
         title = request.form["title"]
         description = request.form["description"]
 
@@ -463,7 +463,7 @@ def delete_game(game_id):
         return render_template("delete_game.html", game=game, next_page=request.referrer)
 
     if request.method == "POST":
-        check_csrf()
+        # check_csrf() # add
         next_page = request.form["next_page"]
         flash("Game deleted")
         if "delete" in request.form:
@@ -501,7 +501,7 @@ def update_profile_picture():
         return render_template("update_profile_picture.html", IMAGE_FORM=IMAGE_FORM)
 
     if request.method == "POST":
-        check_csrf()
+        # check_csrf() # add
         file = request.files["image"]
         if not file.filename.endswith(".jpg"):
             flash("ERROR: The file is not a .jpg-file")

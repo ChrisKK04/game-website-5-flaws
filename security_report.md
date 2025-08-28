@@ -86,7 +86,7 @@ The developer of the website wanted to allow reviewers to format their reviews w
 by using the flasks safe template-filter, which allows content to include HTML code for formatting. Critically, the safe filter also allows
 JavaScript. Now a user can leave a review for a game that includes JavaScript that could potentially steal another users cookies.
 The issue can be fixed by removing the safe filter and using a different one if needed.
-The fix is included below the line in the link.  
+The fix is included behind the link and can be implemented by removing the first line in the link and adding the one below it.  
 
   &nbsp;&nbsp;Images (XSS example alert-attack):  
     &nbsp;&nbsp;&nbsp;&nbsp;<b>Before:</b>  

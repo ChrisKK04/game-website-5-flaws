@@ -376,8 +376,8 @@ def edit_game(game_id):
         abort(404)
     all_classes = forum.get_all_classes()
 
-    # if game["user_id"] != session["user_id"]:
-        # abort(403)
+    # if game["user_id"] != session["user_id"]: # add
+        # abort(403) # add
 
     classes = forum.get_classes(game_id)
     images = forum.get_images(game_id)

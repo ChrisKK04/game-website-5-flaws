@@ -16,7 +16,7 @@ https://github.com/ChrisKK04/game-website-5-flaws/blob/main/security_report.md.
 
 
 FLAW 1 (A1 Injection):
-https://github.com/ChrisKK04/game-website-5-flaws/blob/main/forum.py#149
+https://github.com/ChrisKK04/game-website-5-flaws/blob/main/forum.py#L149
 The app has a critical SQL injection flaw related to editing game titles and descriptions. When a developer edits a game's title and description, the
 SQL query that updates the values isn't using parameters properly and is directly inserting user input into the query. The flaw can be fixed by
 using SQL parameters properly and not adding variables directly to queries. The fix can be implemented by removing the line in the link
@@ -34,7 +34,7 @@ Images (SQL injection game title edit example):
 
 
 FLAW 2 (A2 Broken authentication)
-https://github.com/ChrisKK04/game-website-5-flaws/blob/main/users.py#4, https://github.com/ChrisKK04/game-website-5-flaws/blob/main/users.py#L30
+https://github.com/ChrisKK04/game-website-5-flaws/blob/main/users.py#L4, https://github.com/ChrisKK04/game-website-5-flaws/blob/main/users.py#L30
 and https://github.com/ChrisKK04/game-website-5-flaws/blob/main/users.py#L43
 The app is storing user passwords as plaintext without any hashing, meaning that if the database leaks, all of the user
 passwords could be read directly from the database as is.
@@ -42,8 +42,8 @@ The flaw can be fixed by hashing the passwords before they're added to the datab
 is hashed and checked against the hash in the database. If the hash matches, the user is logged in.
 The fix can be implented with werkzeug.security-modules generate_password_hash()- and check_password_hash()-functions.
 The fixes can be implented by removing the comments from the import in the first link and by removing the first line and un-commenting the second
-line for the two other links. The lines in https://github.com/ChrisKK04/game-website-5-flaws/blob/main/pre_data.py#4 and
-https://github.com/ChrisKK04/game-website-5-flaws/blob/main/pre_data.py#103 should also be added to allow pre_data.py to function with hashing.
+line for the two other links. The lines in https://github.com/ChrisKK04/game-website-5-flaws/blob/main/pre_data.py#L4 and
+https://github.com/ChrisKK04/game-website-5-flaws/blob/main/pre_data.py#L103 should also be added to allow pre_data.py to function with hashing.
 Images (username, password):
   Before:
     https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-2-before.png
@@ -51,7 +51,7 @@ Images (username, password):
     https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-2-after.png
 
 FLAW 3 (Cross-site request forgery (CSRF)):
-https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#42
+https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L42
 The website generates CSRF-tokens upon logins and sends them in forms but never checks them. This means that a malicious actor can steal
 a session's cookies and do CSRF attacks easily by sending any CSRF-token it its requests to the server. The issue can be fixed by
 adding CSRF-token checks to all parts of the app that modify data in the database. The fix can be implemented by adding the function

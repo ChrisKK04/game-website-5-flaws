@@ -16,7 +16,7 @@ NOTES: Additional usage instructions are included in the [README.md](https://git
 top ten list](https://owasp.org/www-project-top-ten/2017/). The example images are included in [docs/screenshots](https://github.com/ChrisKK04/game-website-5-flaws/tree/main/docs/screenshots).  
 
 ### FLAW 1 ([A1 Injection](https://owasp.org/www-project-top-ten/2017/A1_2017-Injection)):  
-[line 149 in forum.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/forum.py#149)  
+[line 149 in forum.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/forum.py#L149)  
 The app has a critical SQL injection flaw related to editing game titles and descriptions. When a developer edits a game's title and description, the
 SQL query that updates the values isn't using parameters properly and is directly inserting user input into the query. The flaw can be fixed by
 using SQL parameters properly and not adding variables directly to queries. The fix can be implemented by removing the line in the link
@@ -35,7 +35,7 @@ and the one below and adding the next two lines.
 
 
 ### FLAW 2 ([A2 Broken authentication](https://owasp.org/www-project-top-ten/2017/A2_2017-Broken_Authentication))  
-[line 4 in users.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/users.py#4), [line 30 in users.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/users.py#L30)
+[line 4 in users.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/users.py#L4), [line 30 in users.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/users.py#L30)
 and [line 43 in users.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/users.py#L43)  
 The app is storing user passwords as plaintext without any hashing, meaning that if the database leaks, all of the user
 passwords could be read directly from the database as is.
@@ -43,8 +43,8 @@ The flaw can be fixed by hashing the passwords before they're added to the datab
 is hashed and checked against the hash in the database. If the hash matches, the user is logged in.
 The fix can be implented with werkzeug.security-modules generate_password_hash()- and check_password_hash()-functions.
 The fixes can be implented by removing the comments from the import in the first link and by removing the first line and un-commenting the second
-line for the two other links. The lines [line 4 in pre_data.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/pre_data.py#4) and
-[line 103 in pre_data.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/pre_data.py#103) should also be added to allow pre_data.py to function with hashing.  
+line for the two other links. The lines [line 4 in pre_data.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/pre_data.py#L4) and
+[line 103 in pre_data.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/pre_data.py#L103) should also be added to allow pre_data.py to function with hashing.  
 
   &nbsp;&nbsp;Images (username, password):  
     &nbsp;&nbsp;&nbsp;&nbsp;Before:  
@@ -53,11 +53,11 @@ line for the two other links. The lines [line 4 in pre_data.py](https://github.c
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[flaw-2-after](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-2-after.png)  
 
 ### FLAW 3 ([Cross-site request forgery (CSRF)](https://owasp.org/www-community/attacks/csrf)):  
-[line 42 in app.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#42)  
+[line 42 in app.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L42)  
 The website generates CSRF-tokens upon logins and sends them in forms but never checks them. This means that a malicious actor can steal
 a session's cookies and do CSRF attacks easily by sending any CSRF-token it its requests to the server. The issue can be fixed by
 adding CSRF-token checks to all parts of the app that modify data in the database. The fix can be implemented by adding the function
-behind the link and adding CSRF-checks to lines [110](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#110), [267](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#267), [329](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#329), [361](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#361), [392](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#392), [466](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#466) and [504](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#504) in app.py.
+behind the link and adding CSRF-checks to lines [110](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L110), [267](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L267), [329](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L329), [361](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L361), [392](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L392), [466](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L466) and [504](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L504) in app.py.
 
   &nbsp;&nbsp;Images:  
     &nbsp;&nbsp;&nbsp;&nbsp;The flaw doesn't have images due to CSRF being hard execute on a single machine using flask.  

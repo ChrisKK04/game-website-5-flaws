@@ -52,7 +52,7 @@ line for the two other links. The lines [line 4 in pre_data.py](https://github.c
     &nbsp;&nbsp;&nbsp;&nbsp;After:  
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[flaw-2-after](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-2-after.png)  
 
-### FLAW 3 (Cross-site request forgery (CSRF)):  
+### FLAW 3 ([Cross-site request forgery (CSRF)](https://owasp.org/www-community/attacks/csrf)):  
 [line 42 in app.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#42)  
 The website generates CSRF-tokens upon logins and sends them in forms but never checks them. This means that a malicious actor can steal
 a session's cookies and do CSRF attacks easily by sending any CSRF-token it its requests to the server. The issue can be fixed by
@@ -63,7 +63,7 @@ behind the link and adding CSRF-checks to lines [110](https://github.com/ChrisKK
     &nbsp;&nbsp;&nbsp;&nbsp;The flaw doesn't have images due to CSRF being hard execute on a single machine using flask.  
 
 
-### FLAW 4 (A5 Broken access control)  
+### FLAW 4 ([A5 Broken access control](https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control))  
 [line 379 in app.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L379)  
 The developer forgot to add proper access control to the game edit pages, meaning that any user can edit any game listing by
 accessing the editing page directly via an URL. For example, any user can type edit_game/3 into the URL and edit game 3 even
@@ -80,7 +80,7 @@ After the fix, games can only be edited by their developer.
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[flaw-4-after](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-4-after.png)  
 
 
-### FLAW 5 (A7 Cross-site scripting (XSS))  
+### FLAW 5 ([A7 Cross-site scripting (XSS)](https://owasp.org/www-project-top-ten/2017/A7_2017-Cross-Site_Scripting_(XSS)))  
 [line 139 in game.html](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/templates/game.html#L139)  
 The developer of the website wanted to allow reviewers to format their reviews with bolding, italics, etc. They implemented the feature
 by using the flasks safe template-filter, which allows content to include HTML code for formatting. Critically the safe filter also allows

@@ -60,7 +60,7 @@ adding CSRF-token checks to all parts of the app that modify data in the databas
 behind the link and adding CSRF-checks to lines [110](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L110), [267](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L267), [329](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L329), [361](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L361), [392](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L392), [466](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L466) and [504](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L504) in app.py.
 
   &nbsp;&nbsp;Images:  
-    &nbsp;&nbsp;&nbsp;&nbsp;The flaw doesn't have images due to CSRF being hard execute on a single machine using flask.  
+    &nbsp;&nbsp;&nbsp;&nbsp;The flaw doesn't have images due to CSRF being hard to execute on a single machine using flask.  
 
 
 ### FLAW 4 ([A5 Broken access control](https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control))  
@@ -83,7 +83,7 @@ After the fix, games can only be edited by their developer.
 ### FLAW 5 ([A7 Cross-site scripting (XSS)](https://owasp.org/www-project-top-ten/2017/A7_2017-Cross-Site_Scripting_(XSS)))  
 [line 139 in game.html](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/templates/game.html#L139)  
 The developer of the website wanted to allow reviewers to format their reviews with bolding, italics, etc. They implemented the feature
-by using the flasks safe template-filter, which allows content to include HTML code for formatting. Critically the safe filter also allows
+by using the flasks safe template-filter, which allows content to include HTML code for formatting. Critically, the safe filter also allows
 JavaScript. Now a user can leave a review for a game that includes JavaScript that could potentially steal another users cookies.
 The issue can be fixed by removing the safe filter and using a different one if needed.
 The fix is included below the line in the link.  

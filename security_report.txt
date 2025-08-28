@@ -56,7 +56,7 @@ The website generates CSRF-tokens upon logins and sends them in forms but never 
 a session's cookies and do CSRF attacks easily by sending any CSRF-token it its requests to the server. The issue can be fixed by
 adding CSRF-token checks to all parts of the app that modify data in the database. The fix can be implemented by adding the function
 behind the link and adding CSRF-checks to lines 110, 267, 329, 361, 392, 466 and 504 in app.py.
-The flaw doesn't have images due to CSRF being hard execute on a single machine using flask.
+The flaw doesn't have images due to CSRF being hard execute to on a single machine using flask.
 
 
 FLAW 4 (A5 Broken access control)
@@ -78,7 +78,7 @@ Images (editing via URL):
 FLAW 5 (A7 Cross-site scripting (XSS))
 https://github.com/ChrisKK04/game-website-5-flaws/blob/main/templates/game.html#L139
 The developer of the website wanted to allow reviewers to format their reviews with bolding, italics, etc. They implemented the feature
-by using the flasks safe template-filter, which allows content to include HTML code for formatting. Critically the safe filter also allows
+by using the flasks safe template-filter, which allows content to include HTML code for formatting. Critically, the safe filter also allows
 JavaScript. Now a user can leave a review for a game that includes JavaScript that could potentially steal another users cookies.
 The issue can be fixed by removing the safe filter and using a different one if needed.
 The fix is included below the line in the link.

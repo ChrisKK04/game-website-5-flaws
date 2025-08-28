@@ -1,5 +1,5 @@
 # This repository includes a modified version of Purple
-This version of Purple includes five major security flaws: Injection, broken authentication, cross-site request forgery (CSRF), broken access control and cross-site scripting (XSS). Longer descriptions of the flaws, their fixes and example images are included in security_report.txt. The orignal Purple can be found at https://github.com/ChrisKK04/game-website.
+This version of Purple includes five major security flaws: Injection, broken authentication, cross-site request forgery (CSRF), broken access control and cross-site scripting (XSS). Longer descriptions of the flaws, their fixes and example images are included in [security_report.md](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/security_report.md). The original Purple can be found at [Purple](https://github.com/ChrisKK04/game-website).
 
 # Purple
 

@@ -11,7 +11,8 @@ INSTALLATION: The website needs Python (https://www.python.org/downloads/) and S
 6. $ sqlite3 database.db < init.sql (adds categories into the database)
 7. $ flask run (runs the website)
 NOTES: Additional usage instructions are included in the README.md at https://github.com/ChrisKK04/game-website-5-flaws. The flaw-list uses the OWASP 2017
-top ten list (https://owasp.org/www-project-top-ten/2017/). The example images are included in docs/screenshots.
+top ten list (https://owasp.org/www-project-top-ten/2017/). The example images are included in docs/screenshots. For better text and link formatting, go to
+https://github.com/ChrisKK04/game-website-5-flaws/blob/main/security_report.md.
 
 
 FLAW 1 (A1 Injection):
@@ -22,14 +23,14 @@ using SQL parameters properly and not adding variables directly to queries. The 
 and the one below and adding the next two lines. 
 Images (SQL injection game title edit example):
   Before:
-    docs/screenshots/flaw-1-before1.png
-    docs/screenshots/flaw-1-before2.png
-    docs/screenshots/flaw-1-before3.png
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-1-before-1.png
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-1-before-2.png
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-1-before-3.png
   After:
-    docs/screenshots/flaw-1-after1.png
-    docs/screenshots/flaw-1-after2.png
-    docs/screenshots/flaw-1-after3.png
-    docs/screenshots/flaw-1-after4.png
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-1-after-1.png
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-1-after-2.png
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-1-after-3.png
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-1-after-4.png
 
 
 FLAW 2 (A2 Broken authentication)
@@ -42,13 +43,12 @@ is hashed and checked against the hash in the database. If the hash matches, the
 The fix can be implented with werkzeug.security-modules generate_password_hash()- and check_password_hash()-functions.
 The fixes can be implented by removing the comments from the import in the first link and by removing the first line and un-commenting the second
 line for the two other links. The lines in https://github.com/ChrisKK04/game-website-5-flaws/blob/main/pre_data.py#4 and
-https://github.com/ChrisKK04/game-website-5-flaws/blob/main/users.py#103 should also be added to allow pre_data.py to fucntion with hashing.
+https://github.com/ChrisKK04/game-website-5-flaws/blob/main/pre_data.py#103 should also be added to allow pre_data.py to function with hashing.
 Images (username, password):
   Before:
-    docs/screenshots/flaw-2-before.png
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-2-before.png
   After:
-    docs/screenshots/flaw-2-after.png
-
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-2-after.png
 
 FLAW 3 (Cross-site request forgery (CSRF)):
 https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#42
@@ -69,22 +69,22 @@ The fix is included behind the link and can be implented by removing the comment
 After the fix, games can only be edited by their developer.
 Images (editing via URL):
   Before:
-    docs/screenshots/flaw-4-before1.png
-    docs/screenshots/flaw-4-before2.png
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-4-before-1.png
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-4-before-2.png
   After:
-    docs/screenshots/flaw-4-after.png
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-4-after.png
 
 
 FLAW 5 (A7 Cross-site scripting (XSS))
 https://github.com/ChrisKK04/game-website-5-flaws/blob/main/templates/game.html#L139
-The developer of the website wanted to allowed reviewers to format their reviews with bolding, italics, etc. They implemented the feature
+The developer of the website wanted to allow reviewers to format their reviews with bolding, italics, etc. They implemented the feature
 by using the flasks safe template-filter, which allows content to include HTML code for formatting. Critically the safe filter also allows
 JavaScript. Now a user can leave a review for a game that includes JavaScript that could potentially steal another users cookies.
 The issue can be fixed by removing the safe filter and using a different one if needed.
 The fix is included below the line in the link.
 Images (XSS example alert-attack):
   Before:
-    docs/screenshots/flaw-5-before1.png
-    docs/screenshots/flaw-5-before2.png 
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-5-before-1.png
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-5-before-2.png
   After:
-    docs/screenshots/flaw-5-after.png 
+    https://github.com/ChrisKK04/game-website-5-flaws/blob/main/docs/screenshots/flaw-5-after.png

@@ -24,14 +24,14 @@ and the one below and adding the next two lines.
 
   &nbsp;&nbsp;Images (SQL injection game title edit example):  
     &nbsp;&nbsp;&nbsp;&nbsp;<b>Before</b>:  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-before-1.png" alt="flaw-1-before-1" width="400" style="display: block; margin: 0 auto;">  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-before-2.png" alt="flaw-1-before-2" width="400" style="display: block; margin: 0 auto;">  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-before-3.png" alt="flaw-1-before-3" width="400" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-before-1.png" alt="flaw-1-before-1" width="600" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-before-2.png" alt="flaw-1-before-2" width="600" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-before-3.png" alt="flaw-1-before-3" width="600" style="display: block; margin: 0 auto;">  
     &nbsp;&nbsp;&nbsp;&nbsp;<b>After</b>:  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-after-1.png" alt="flaw-1-after-1" width="400" style="display: block; margin: 0 auto;">  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-after-2.png" alt="flaw-1-after-2" width="400" style="display: block; margin: 0 auto;">  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-after-3.png" alt="flaw-1-after-3" width="400" style="display: block; margin: 0 auto;">  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-after-4.png" alt="flaw-1-after-4" width="400" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-after-1.png" alt="flaw-1-after-1" width="600" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-after-2.png" alt="flaw-1-after-2" width="600" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-after-3.png" alt="flaw-1-after-3" width="600" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-1-after-4.png" alt="flaw-1-after-4" width="600" style="display: block; margin: 0 auto;">  
 
 
 ### FLAW 2 ([A2 Broken authentication](https://owasp.org/www-project-top-ten/2017/A2_2017-Broken_Authentication))  
@@ -48,9 +48,9 @@ line for the two other links. The lines [line 4 in pre_data.py](https://github.c
 
   &nbsp;&nbsp;Images (username, password):  
     &nbsp;&nbsp;&nbsp;&nbsp;<b>Before</b>:  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-2-before.png" alt="flaw-2-before" width="400" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-2-before.png" alt="flaw-2-before" width="500" style="display: block; margin: 0 auto;">  
     &nbsp;&nbsp;&nbsp;&nbsp;<b>After</b>:  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-2-after.png" alt="flaw-2-after" width="700" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-2-after.png" alt="flaw-2-after" width="800" style="display: block; margin: 0 auto;">  
 
 ### FLAW 3 ([Cross-site request forgery (CSRF)](https://owasp.org/www-community/attacks/csrf)):  
 [line 42 in app.py](https://github.com/ChrisKK04/game-website-5-flaws/blob/main/app.py#L42)  
@@ -74,10 +74,10 @@ After the fix, games can only be edited by their developer.
 
   &nbsp;&nbsp;Images (editing via URL):  
     &nbsp;&nbsp;&nbsp;&nbsp;<b>Before:</b>  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-4-before-1.png" alt="flaw-4-before-1" width="600" style="display: block; margin: 0 auto;">  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-4-before-2.png" alt="flaw-4-before-2" width="400" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-4-before-1.png" alt="flaw-4-before-1" width="800" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-4-before-2.png" alt="flaw-4-before-2" width="600" style="display: block; margin: 0 auto;">  
     &nbsp;&nbsp;&nbsp;&nbsp;<b>After:</b>  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-4-after.png" alt="flaw-4-after" width="400" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-4-after.png" alt="flaw-4-after" width="600" style="display: block; margin: 0 auto;">  
 
 
 ### FLAW 5 ([A7 Cross-site scripting (XSS)](https://owasp.org/www-project-top-ten/2017/A7_2017-Cross-Site_Scripting_(XSS)))  
@@ -90,7 +90,7 @@ The fix is included below the line in the link.
 
   &nbsp;&nbsp;Images (XSS example alert-attack):  
     &nbsp;&nbsp;&nbsp;&nbsp;<b>Before:</b>  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-5-before-1.png" alt="flaw-5-before-1" width="400" style="display: block; margin: 0 auto;">  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-5-before-2.png" alt="flaw-5-before-2" width="400" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-5-before-1.png" alt="flaw-5-before-1" width="600" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-5-before-2.png" alt="flaw-5-before-2" width="600" style="display: block; margin: 0 auto;">  
     &nbsp;&nbsp;&nbsp;&nbsp;<b>After:</b>  
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-5-after.png" alt="flaw-5-after" width="400" style="display: block; margin: 0 auto;">  
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/screenshots/flaw-5-after.png" alt="flaw-5-after" width="600" style="display: block; margin: 0 auto;">  
